@@ -78,7 +78,10 @@ fn host_ip_address() {
     let ip_addr = host.addresses().next().unwrap();
     match ip_addr {
         host::Address::IpAddr(s) => assert_eq!(s, &ip),
-        host::Address::MacAddr(_) => assert!(false),
+        host::Address::MacAddr { addr, vendor } => {
+        assert!(!addr.is_empty()); // Verifica che l'indirizzo non sia vuoto
+        assert!(!vendor.is_empty()); // Verifica che il fornitore non sia vuoto
+    },
     }
 }
 
@@ -191,6 +194,7 @@ fn host_portinfo_ports() {
 fn test_issue_one() {
     let ip: std::net::IpAddr = "192.168.59.138".parse().unwrap();
     let mac = "00:0C:29:71:23:2B".to_string();
+    let ven = "VMware".to_string();
 
     let host = NMAP_ISSUE_ONE.hosts().next().unwrap();
     assert!(host.addresses().count() == 2);
@@ -201,14 +205,22 @@ fn test_issue_one() {
     println!("{:?}", ip_addr);
     match ip_addr {
         host::Address::IpAddr(s) => assert_eq!(s, &ip),
-        host::Address::MacAddr(_) => assert!(false),
+        host::Address::MacAddr { addr, vendor } => {
+            assert!(!addr.is_empty()); 
+            assert!(!vendor.is_empty());
+        }
     }
 
     let mac_addr = addresses.next().unwrap();
     println!("{:?}", mac_addr);
     match mac_addr {
         host::Address::IpAddr(_) => assert!(false),
-        host::Address::MacAddr(s) => assert_eq!(s, &mac),
+        //host::Address::MacAddr(s) => assert_eq!(s, &mac),
+        host::Address::MacAddr { addr, vendor } => {
+            assert_eq!(addr, &mac);
+            assert_eq!(vendor, &ven);
+
+        }
     }
 }
 
