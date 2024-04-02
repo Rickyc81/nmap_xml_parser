@@ -10,7 +10,7 @@ use crate::Error;
 #[derive(Display, Clone, Debug, PartialEq)]
 pub enum Address {
     IpAddr(IpAddr),
-    MacAddr { addr: String, vendor: String },
+    MacAddr { addr: String, vendor: Option<String> },
 }
 
 #[derive(Clone, Debug)]
@@ -97,14 +97,12 @@ fn parse_address_node(node: Node) -> Result<Address, Error> {
         .attribute("addr")
         .ok_or_else(|| Error::from("expected `addr` attribute in `address` node"))?;
 
-    let vendor = node
-        .attribute("vendor")
-        .unwrap_or_default(); 
+    let vendor = node.attribute("vendor").map(|v| v.to_string());
 
     match addrtype {
         "mac" => Ok(Address::MacAddr {
             addr: addr.to_string(),
-            vendor: vendor.to_string(), 
+            vendor
         }),
         _ => {
             let a = addr
