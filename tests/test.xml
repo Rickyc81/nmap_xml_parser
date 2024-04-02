@@ -7,7 +7,7 @@
 <verbose level="0"/>
 <debugging level="0"/>
 <host starttime="1588318812" endtime="1588318814"><status state="up" reason="echo-reply" reason_ttl="53"/>
-<address addr="45.33.32.156" addrtype="ipv4" vendor="VMware"/>
+<address addr="45.33.32.156" addrtype="ipv4"/>
 <hostnames>
 <hostname name="scanme.nmap.org" type="user"/>
 <hostname name="scanme.nmap.org" type="PTR"/>
