@@ -8,7 +8,7 @@
 <debugging level="0"/>
 <host starttime="1589292535" endtime="1589292535"><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.59.138" addrtype="ipv4"/>
-<address addr="00:0C:29:71:23:2B" addrtype="mac"/>
+<address addr="00:0C:29:71:23:2B" addrtype="mac" vendor="VMware"/>
 <hostnames/>
 <ports><port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
